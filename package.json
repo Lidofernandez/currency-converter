@@ -33,6 +33,7 @@
     "@babel/core": "^7.13.10",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-transform-modules-commonjs": "^7.13.8",
+    "@babel/plugin-transform-runtime": "^7.13.10",
     "@babel/preset-env": "^7.13.10",
     "@babel/preset-react": "^7.12.13",
     "@testing-library/react": "^11.2.5",
@@ -60,7 +61,28 @@
     "workbox-webpack-plugin": "^6.1.2"
   },
   "dependencies": {
+    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
+  },
+  "browserslist": [
+    "ie >= 11",
+    "last 2 versions"
+  ],
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(scss)$": "<rootDir>/__mocks__/styleMock.js"
+    },
+    "setupFilesAfterEnv": [
+      "./jest.setup.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    }
   }
 }
