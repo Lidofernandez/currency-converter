@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Dropdown = ({ options, getValue, value }) => (
+const Dropdown = ({ options, getValue, value, testid }) => (
   <select
     onBlur={getValue}
     onChange={(event) => getValue(event)}
     value={value}
-    data-testid="Dropdown"
+    data-testid={`${testid}`}
   >
     {options.map((optionItem) => (
       <option key={optionItem} value={optionItem}>
@@ -20,12 +20,14 @@ Dropdown.defaultProps = {
   options: [],
   value: "",
   getValue: () => {},
+  testid: "Dropdown",
 };
 
 Dropdown.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string),
   value: PropTypes.string,
   getValue: PropTypes.func,
+  testid: PropTypes.string,
 };
 
 export default Dropdown;

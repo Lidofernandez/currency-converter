@@ -18,6 +18,20 @@ module.exports = {
     }),
     new WorkboxWebpackPlugin.GenerateSW({
       swDest: "sw.js",
+      runtimeCaching: [
+        {
+          urlPattern: /^https:\/\/api\.exchangeratesapi\.*/,
+          handler: "CacheFirst",
+
+          options: {
+            cacheName: "APIs",
+
+            expiration: {
+              maxEntries: 10,
+            },
+          },
+        },
+      ],
       clientsClaim: true,
       skipWaiting: false,
     }),
