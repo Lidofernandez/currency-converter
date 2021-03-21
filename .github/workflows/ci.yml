@@ -1,0 +1,27 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  linters:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install modules
+        run: npm ci
+      - name: Run all linters
+        run: npm run lint
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install modules
+        run: npm ci
+      - name: Run Jest coverage
+        run: npm run test:coverage
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install modules
+        run: npm ci
+      - name: build
+        run: npm run build:prod
