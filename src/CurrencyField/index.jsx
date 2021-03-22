@@ -9,6 +9,7 @@ const CurrencyField = ({
   getCurrency,
   value,
   handleOnChange,
+  currencyTestid,
 }) => (
   <>
     <input onChange={handleOnChange} value={value} type="number" />
@@ -16,6 +17,7 @@ const CurrencyField = ({
       options={currencies}
       getValue={getCurrency}
       value={selectedCurrency}
+      testid={currencyTestid}
     />
   </>
 );
@@ -26,6 +28,7 @@ CurrencyField.defaultProps = {
   selectedCurrency: "",
   handleOnChange: () => {},
   getCurrency: () => {},
+  currencyTestid: "Dropdown",
 };
 
 CurrencyField.propTypes = {
@@ -34,6 +37,7 @@ CurrencyField.propTypes = {
   selectedCurrency: PropTypes.string,
   handleOnChange: PropTypes.func,
   getCurrency: PropTypes.func,
+  currencyTestid: PropTypes.string,
 };
 
 export default CurrencyField;

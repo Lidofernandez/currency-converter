@@ -10,7 +10,7 @@ exports[`App should render 1`] = `
       value="1"
     />
     <select
-      data-testid="Dropdown"
+      data-testid="toConvert"
     >
       <option
         value="ChuckNorris"
@@ -21,15 +21,20 @@ exports[`App should render 1`] = `
         value="BruceLee"
       >
         BruceLee
+      </option>
+      <option
+        value="CaptainAmerica"
+      >
+        CaptainAmerica
       </option>
     </select>
     is equal to
     <input
       type="number"
-      value="10"
+      value="30"
     />
     <select
-      data-testid="Dropdown"
+      data-testid="converted"
     >
       <option
         value="ChuckNorris"
@@ -40,6 +45,11 @@ exports[`App should render 1`] = `
         value="BruceLee"
       >
         BruceLee
+      </option>
+      <option
+        value="CaptainAmerica"
+      >
+        CaptainAmerica
       </option>
     </select>
   </div>

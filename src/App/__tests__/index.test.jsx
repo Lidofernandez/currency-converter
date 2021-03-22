@@ -4,12 +4,45 @@ import App from "../index";
 
 describe("App", () => {
   beforeEach(() => {
-    global.fetch = jest.fn(() =>
-      Promise.resolve({
+    global.fetch = jest.fn().mockImplementation((url) => {
+      if (url.includes("base=ChuckNorris&symbols=BruceLee")) {
+        return Promise.resolve({
+          json: () =>
+            Promise.resolve({
+              rates: { BruceLee: 30 },
+              base: "ChuckNorris",
+            }),
+        });
+      }
+
+      if (url.includes("ChuckNorris&symbols=CaptainAmerica")) {
+        return Promise.resolve({
+          json: () =>
+            Promise.resolve({
+              rates: { CaptainAmerica: 500 },
+              base: "ChuckNorris",
+            }),
+        });
+      }
+
+      if (url.includes("CaptainAmerica&symbols=BruceLee")) {
+        return Promise.resolve({
+          json: () =>
+            Promise.resolve({
+              rates: { BruceLee: 5 },
+              base: "CaptainAmerica",
+            }),
+        });
+      }
+
+      return Promise.resolve({
         json: () =>
-          Promise.resolve({ rates: { BruceLee: 10 }, base: "ChuckNorris" }),
-      }),
-    );
+          Promise.resolve({
+            rates: { BruceLee: 10, CaptainAmerica: 500 },
+            base: "ChuckNorris",
+          }),
+      });
+    });
   });
 
   afterEach(() => {
@@ -23,55 +56,77 @@ describe("App", () => {
   });
 
   it("should render the currencies", async () => {
-    const { getByDisplayValue, getAllByTestId } = render(<App />);
+    const { getByDisplayValue } = render(<App />);
     await waitFor(() => {
-      getAllByTestId("Dropdown");
       getByDisplayValue("BruceLee");
       getByDisplayValue("ChuckNorris");
     });
   });
 
   it("should convert from target input", async () => {
-    const { getByDisplayValue, getAllByTestId } = render(<App />);
+    const { getByDisplayValue, getByTestId } = render(<App />);
     await waitFor(() => {
-      getAllByTestId("Dropdown");
+      getByTestId("toConvert");
+      getByTestId("converted");
     });
 
     const chuckNorris = getByDisplayValue("1");
     fireEvent.change(chuckNorris, { target: { value: 9 } });
-    await waitFor(() => getByDisplayValue(90));
+    await waitFor(() => getByDisplayValue(270));
   });
 
   it("should convert from ouput input", async () => {
-    const { getByDisplayValue, getAllByTestId } = render(<App />);
+    const { getByDisplayValue, getByTestId } = render(<App />);
     await waitFor(() => {
-      getAllByTestId("Dropdown");
+      getByTestId("toConvert");
+      getByTestId("converted");
     });
 
-    const bruceLee = getByDisplayValue("10");
+    const bruceLee = getByDisplayValue("1");
     fireEvent.change(bruceLee, { target: { value: 100 } });
-    await waitFor(() => getByDisplayValue(10));
+    await waitFor(() => getByDisplayValue(3000));
   });
 
   it("should convert from target dropdown", async () => {
-    const { getByDisplayValue, getAllByTestId } = render(<App />);
+    const { getByDisplayValue, getByTestId } = render(<App />);
     await waitFor(() => {
-      getAllByTestId("Dropdown");
+      getByTestId("toConvert");
     });
 
-    const chuckNorris = getByDisplayValue("ChuckNorris");
-    fireEvent.change(chuckNorris, { target: { value: "BruceLee" } });
-    await waitFor(() => getByDisplayValue(10));
+    fireEvent.change(getByTestId("toConvert"), {
+      target: { value: "CaptainAmerica" },
+    });
+
+    await waitFor(() => getByDisplayValue(5));
+    expect(global.fetch).toHaveBeenCalledTimes(3);
   });
 
   it("should convert from ouput dropdown", async () => {
-    const { getByDisplayValue, getAllByTestId } = render(<App />);
+    const { getByDisplayValue, getByTestId } = render(<App />);
     await waitFor(() => {
-      getAllByTestId("Dropdown");
+      getByTestId("converted");
     });
 
-    const bruceLee = getByDisplayValue("BruceLee");
-    fireEvent.change(bruceLee, { target: { value: "ChuckNorris" } });
-    await waitFor(() => getByDisplayValue(1));
+    fireEvent.change(getByTestId("converted"), {
+      target: { value: "CaptainAmerica" },
+    });
+
+    await waitFor(() => getByDisplayValue(500));
+    expect(global.fetch).toHaveBeenCalledTimes(3);
+  });
+
+  it("should not trigger extra API for same options", async () => {
+    const { getAllByDisplayValue, getByTestId } = render(<App />);
+    await waitFor(() => {
+      getByTestId("toConvert");
+      getByTestId("converted");
+    });
+
+    fireEvent.change(getByTestId("converted"), {
+      target: { value: "ChuckNorris" },
+    });
+
+    await waitFor(() => getAllByDisplayValue(1));
+    expect(global.fetch).toHaveBeenCalledTimes(2);
   });
 });

@@ -23,6 +23,7 @@ const App = () => {
         setLoading(false);
         const rateList = Object.keys(data.rates);
         setCurrencies([data.base, ...rateList]);
+        setCurrency(data.base);
         setToCurrency(rateList[0]);
         setExchangeRate(data.rates[rateList[0]]);
       } catch (error) {
@@ -34,10 +35,6 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (!currency || !toCurrency) {
-      return;
-    }
-
     async function fetchCurrencyRate() {
       try {
         setLoading(true);
@@ -53,7 +50,14 @@ const App = () => {
       }
     }
 
-    fetchCurrencyRate();
+    if (currency && toCurrency) {
+      if (currency === toCurrency) {
+        setExchangeRate(1);
+        return;
+      }
+
+      fetchCurrencyRate();
+    }
   }, [currency, toCurrency]);
 
   const getCurrency = (event) => {
@@ -92,6 +96,7 @@ const App = () => {
         <>
           <CurrencyField
             currencies={currencies}
+            currencyTestid="toConvert"
             selectedCurrency={currency}
             getCurrency={getCurrency}
             handleOnChange={getValue}
@@ -100,6 +105,7 @@ const App = () => {
           is equal to
           <CurrencyField
             currencies={currencies}
+            currencyTestid="converted"
             selectedCurrency={toCurrency}
             getCurrency={getToCurrency}
             handleOnChange={getToValue}
