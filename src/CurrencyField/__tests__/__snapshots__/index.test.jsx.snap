@@ -2,23 +2,25 @@
 
 exports[`CurrencyField should render 1`] = `
 <DocumentFragment>
-  <input
-    type="number"
-    value="1"
-  />
-  <select
-    data-testid="Dropdown"
-  >
-    <option
-      value="EUR"
+  <div>
+    <input
+      type="number"
+      value="1"
+    />
+    <select
+      data-testid="Dropdown"
     >
-      EUR
-    </option>
-    <option
-      value="USD"
-    >
-      USD
-    </option>
-  </select>
+      <option
+        value="EUR"
+      >
+        EUR
+      </option>
+      <option
+        value="USD"
+      >
+        USD
+      </option>
+    </select>
+  </div>
 </DocumentFragment>
 `;

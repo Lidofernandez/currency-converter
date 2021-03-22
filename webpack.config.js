@@ -1,6 +1,7 @@
 const webpack = require("webpack");
 const autoprefixer = require("autoprefixer");
 const precss = require("precss");
+const postcssPresetEnv = require("postcss-preset-env");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
@@ -42,9 +43,12 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         loader: "babel-loader",
+        options: {
+          compact: false,
+        },
       },
       {
-        test: /.css$/,
+        test: /\.s[ac]ss$/i,
 
         use: [
           {
@@ -52,18 +56,16 @@ module.exports = {
           },
           {
             loader: "css-loader",
-
             options: {
-              importLoaders: 1,
-              sourceMap: true,
+              modules: true,
             },
           },
           {
             loader: "postcss-loader",
 
             options: {
-              plugins() {
-                return [precss, autoprefixer];
+              postcssOptions: {
+                plugins: [precss, autoprefixer, postcssPresetEnv],
               },
             },
           },

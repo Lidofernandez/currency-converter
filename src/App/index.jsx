@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import CurrencyField from "../CurrencyField";
 
+import css from "./index.scss";
+
 const API_CURRENCY_URL = "https://api.exchangeratesapi.io/latest";
 
 const App = () => {
@@ -93,7 +95,7 @@ const App = () => {
       {loading ? (
         "loading..."
       ) : (
-        <>
+        <div className={css.app}>
           <CurrencyField
             currencies={currencies}
             currencyTestid="toConvert"
@@ -102,7 +104,7 @@ const App = () => {
             handleOnChange={getValue}
             value={valueToConvert}
           />
-          is equal to
+          <div className={css.app__separator}>=</div>
           <CurrencyField
             currencies={currencies}
             currencyTestid="converted"
@@ -111,7 +113,7 @@ const App = () => {
             handleOnChange={getToValue}
             value={valueConverted}
           />
-        </>
+        </div>
       )}
     </div>
   );

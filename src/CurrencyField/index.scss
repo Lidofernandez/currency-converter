@@ -1,0 +1,11 @@
+.currency-field {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  min-height: 2rem;
+}
+
+.currency-field--input {
+  width: 100%;
+  box-sizing: border-box;
+}

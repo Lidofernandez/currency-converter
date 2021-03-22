@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 
 import Dropdown from "../Dropdown";
 
+import css from "./index.scss";
+
 const CurrencyField = ({
   currencies,
   selectedCurrency,
@@ -11,15 +13,20 @@ const CurrencyField = ({
   handleOnChange,
   currencyTestid,
 }) => (
-  <>
-    <input onChange={handleOnChange} value={value} type="number" />
+  <div className={css["currency-field"]}>
+    <input
+      onChange={handleOnChange}
+      value={value}
+      type="number"
+      className={css["currency-field--input"]}
+    />
     <Dropdown
       options={currencies}
       getValue={getCurrency}
       value={selectedCurrency}
       testid={currencyTestid}
     />
-  </>
+  </div>
 );
 
 CurrencyField.defaultProps = {
