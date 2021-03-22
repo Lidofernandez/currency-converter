@@ -1,0 +1,57 @@
+html {
+  font-size: 16px;
+  font-family: sans-serif, Helvetica, Arial;
+}
+
+._2A237qhc_f6Scnr4DTcd0I {
+  margin: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-preferred-size: auto;
+      flex-basis: auto;
+  text-align: center;
+}
+
+._1MUSUPRQozsdGoKEwjfJaI {
+  margin: 0.5rem;
+  width: 10%;
+}
+
+@media only screen and (min-width: 520px) {
+  ._2A237qhc_f6Scnr4DTcd0I {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+}
+
+._2YgOVshwmnBGF9CHV9K0Bz {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  min-height: 2rem;
+}
+
+._2GoHHoNAZwnYbJsI9GXxOs {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+._3B3OFMZvZiqID1hI_3hMQk {
+  background-color: #0abf53;
+  color: white;
+  font-weight: bold;
+}
+
